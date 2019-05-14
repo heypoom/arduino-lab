@@ -1,7 +1,7 @@
 build:
 	pio run
 
-run:
+upload:
 	pio run -t upload
 
 clean:

@@ -4,9 +4,11 @@
 
 #define LED_BUILTIN 13
 
-static const int DELAY = 300;
+static const int DELAY = 200;
 
-void setup() { pinMode(LED_BUILTIN, OUTPUT); }
+void setup() {
+  pinMode(LED_BUILTIN, OUTPUT);
+}
 
 void loop() {
   digitalWrite(LED_BUILTIN, HIGH);
