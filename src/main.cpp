@@ -1,5 +1,3 @@
-// ...
-
 #include "Arduino.h"
 
 #define LED_BUILTIN 13
