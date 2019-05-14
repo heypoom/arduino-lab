@@ -1,0 +1,6 @@
+{
+  "terminal.integrated.env.osx": {
+    "PATH": "/Users/phoomparin/.platformio/penv/bin:/Users/phoomparin/.platformio/penv:/Users/phoomparin/.asdf:/Users/phoomparin/.asdf/bin:/Users/phoomparin/.asdf/shims:/usr/local/opt/llvm/bin:/usr/local/opt/coreutils/libexec/gnubin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/libexec:/Users/phoomparin/Library/Android/sdk/tools:/Users/phoomparin/Library/Android/sdk/platform-tools:/Users/phoomparin/.fastlane/bin:/Users/phoomparin/.cargo/bin:/Users/phoomparin/lib/gcloud/bin:/Users/phoomparin/.config/yarn/global/node_modules/.bin:/Users/phoomparin/.pyenv/bin:/Users/phoomparin/.poetry/bin:/Users/phoomparin/lib/flutter/bin:/usr/local/opt/dart@2/bin:/Users/phoomparin/Library/Python/3.6/bin:/Users/phoomparin/Go/bin:/Users/phoomparin/bin:/Users/phoomparin/.local/bin:/Users/phoomparin/.platformio/penv/bin:/Users/phoomparin/lib/emsdk/emscripten/1.37.34:/usr/local/opt/m4/bin:/Users/phoomparin/.stack/programs/x86_64-osx/ghc-8.6.4/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/usr/local/share/dotnet:~/.dotnet/tools:/usr/local/MacGPG2/bin:/Applications/Wireshark.app/Contents/MacOS:/Applications/kitty.app/Contents/MacOS",
+    "PLATFORMIO_CALLER": "vscode"
+  }
+}
