@@ -3,9 +3,9 @@
 #define BUTTON_BUILTIN 2
 #define LED_BUILTIN 13
 
-static const int DELAY = 500;
-
 String text;
+
+int DELAY = 500;
 
 enum LEDState {
     ON,
@@ -76,9 +76,30 @@ void setup() {
 
 int buttonState;
 
-void setState(String state) {
-  state.trim();
-  Serial.println("Updating LED State to: " + state);
+void cycleLEDState() {
+  ledState = nextLEDState();
+}
+
+void setState() {
+  text.trim();
+  Serial.println("Updating LED State to: " + text);
+
+  if (text == "cycle") return cycleLEDState();
+
+  if (text == "slow") {
+    DELAY = 1000;
+    return;
+  }
+
+  if (text == "fast") {
+    DELAY = 80;
+    return;
+  }
+
+  if (text == "normal") {
+    DELAY = 500;
+    return;
+  }
 
   ledState = stringToLEDState(text);
 }
@@ -86,16 +107,14 @@ void setState(String state) {
 void loop() {
   buttonState = digitalRead(BUTTON_BUILTIN);
 
-  if (buttonState == HIGH) {
-    ledState = nextLEDState();
-  }
+  if (buttonState == HIGH) cycleLEDState();
 
   if (Serial.available() > 0) {
     text = Serial.readString();
     Serial.print("I received: ");
     Serial.println(text);
 
-    setState(text);
+    setState();
   }
 
   updateLED();
