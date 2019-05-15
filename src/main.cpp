@@ -1,27 +1,28 @@
 #include "Arduino.h"
 
+#define BUTTON_BUILTIN 2
 #define LED_BUILTIN 13
 
 static const int DELAY = 500;
-
-void setup() {
-  pinMode(LED_BUILTIN, OUTPUT);
-
-  Serial.begin(9600);
-
-  Serial.println("> Serial Active!");
-}
 
 String text;
 
 enum LEDState {
     ON,
     OFF,
-    BLINK
+    BLINK,
 };
 
 LEDState ledState;
 LEDState _currentLEDState;
+
+LEDState nextLEDState() {
+  if (ledState == ON) return BLINK;
+  if (ledState == BLINK) return OFF;
+  if (ledState == OFF) return ON;
+
+  return ON;
+}
 
 static const LEDState stringToLEDState(String state) {
   state.trim();
@@ -34,14 +35,6 @@ static const LEDState stringToLEDState(String state) {
   return OFF;
 }
 
-static const String ledStateToString(LEDState state) {
-  if (state == ON) return "On";
-  if (state == OFF) return "Off";
-  if (state == BLINK) return "Blink";
-
-  return "None";
-}
-
 void updateLED() {
   if (ledState == BLINK) {
     digitalWrite(LED_BUILTIN, HIGH);
@@ -51,9 +44,7 @@ void updateLED() {
     return;
   }
 
-  if (ledState && _currentLEDState == ledState) return;
-
-  Serial.println("Updating LED State to: " + ledStateToString(ledState));
+  if (_currentLEDState == ledState) return;
 
   if (ledState == ON) {
     digitalWrite(LED_BUILTIN, HIGH);
@@ -69,13 +60,42 @@ void updateLED() {
   }
 }
 
+/// ----- Main Code --------
+
+/// Setup.
+void setup() {
+  pinMode(BUTTON_BUILTIN, INPUT);
+  pinMode(LED_BUILTIN, OUTPUT);
+
+  Serial.begin(9600);
+
+  Serial.println("> Serial Active!");
+
+  ledState = OFF;
+}
+
+int buttonState;
+
+void setState(String state) {
+  state.trim();
+  Serial.println("Updating LED State to: " + state);
+
+  ledState = stringToLEDState(text);
+}
+
 void loop() {
+  buttonState = digitalRead(BUTTON_BUILTIN);
+
+  if (buttonState == HIGH) {
+    ledState = nextLEDState();
+  }
+
   if (Serial.available() > 0) {
     text = Serial.readString();
     Serial.print("I received: ");
     Serial.println(text);
 
-    ledState = stringToLEDState(text);
+    setState(text);
   }
 
   updateLED();
