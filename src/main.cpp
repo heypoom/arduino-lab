@@ -111,9 +111,6 @@ void loop() {
 
   if (Serial.available() > 0) {
     text = Serial.readString();
-    Serial.print("I received: ");
-    Serial.println(text);
-
     setState();
   }
 
